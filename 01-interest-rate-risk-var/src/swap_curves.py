@@ -149,17 +149,20 @@ def load_swap_curves(
 
 
 # --------------------------------------------------------------------------- #
-# Ready-made module-level variables
-# --------------------------------------------------------------------------- #
-#: Full swap-curve history, tenors 1Y..10Y, percent quoting, clean DatetimeIndex.
-swap_curves: pd.DataFrame = load_swap_curves()
+# Lazy legacy variables: importing the loader must not require a Bloomberg workbook.
+# New code should call load_swap_curves(path=...) explicitly.
+def __getattr__(name):
+    """Load legacy module attributes on demand (for existing course scripts)."""
+    if name == "swap_curves":
+        return load_swap_curves()
+    if name == "swap_10y":
+        return load_swap_curves()["10Y"].dropna().rename("10Y")
+    raise AttributeError(name)
 
-#: 10Y swap rate history (percent), clean DatetimeIndex.
-swap_10y: pd.Series = swap_curves["10Y"].dropna().rename("10Y")
 
-
-# --------------------------------------------------------------------------- #
 if __name__ == "__main__":
+    swap_curves = load_swap_curves()
+    swap_10y = swap_curves["10Y"].dropna().rename("10Y")
     print("swap_curves")
     print(f"  shape      : {swap_curves.shape}")
     print(f"  date range : {swap_curves.index.min().date()} -> "
