@@ -1,68 +1,66 @@
-# Reproducibility and provenance
+# Reproducibility and validation
 
-This is a curated copy of **collaborative group coursework**, not an independent clean-room implementation. The source code and model outputs come from the [shared course repository](https://github.com/benthebender/Financ-Engeneering). The three final presentations determine the selected cases and conclusions.
+**Updated 25 November 2026.** This repository contains three collaborative Financial Engineering case studies. The quantitative implementations and selected results are documented with clear distinctions between group-presentation figures, original saved outputs and fresh reruns.
 
-## Validation boundary
+## Executed validation
 
-The canonical integrated Case 3 model remains **not independently end-to-end validated**. This repository is an inspectable academic case study with tested mathematical components, not a fully certified actuarial, investment or regulatory calculation system. The raw Bloomberg-derived inputs are intentionally not republished. The expanded GitHub Actions workflow must complete successfully before its status can be reported as passed.
-
-## Quick environment
-Python 3.11+ recommended. Core packages used across the code include NumPy, pandas, SciPy, Matplotlib, openpyxl, pytest and (for some models) scikit-learn, statsmodels, arch, cvxpy and PyYAML. Exact versions were not locked in the original repository; see `requirements.txt` for a starting environment, **not** a guaranteed reproducible lockfile.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Canonical Case 3 model selection
-
-Use **only the later integrated implementation** in the shared GitHub repository (`case3_model.py` + `cashflow_match_v2.py`) as the primary Case 3 model. The earlier archive versions are superseded and will not be combined with its results. Standalone mortality tests remain component-level evidence, not validation of the integrated pipeline. A complete end-to-end rerun still requires the matching workbooks.
-
-## Data requirements and honest limits
-Some scripts refer to Excel workbooks in the original directory structure, and the larger Bloomberg-derived datasets have **not** been republished in this curated repository. Source code is therefore available for inspection, but **end-to-end execution is not yet self-contained**.
-
-- **Case 1:** `src/Final_version.py` expects `Swap curves.xlsx` in its current working directory. `src/hedge_backtest.py` and other helpers also reference shared curve-loading modules. See the [original shared data folder](https://github.com/benthebender/Financ-Engeneering/tree/main/Data).
-- **Case 2:** `src/main.py` expects to find the shared `Swap curves.xlsx` via `curve_io.py` and `swap_curves.py`. The unit tests are included, but running the CLI requires the market-data workbook and original path conventions.
-- **Case 3:** The integrated ALM model uses several Excel workbooks for swap curves, bond prices and portfolio optimization, alongside included CSV outputs. The full raw data package and all exploratory scripts have not been copied.
-
-## Latest independently executed checks — 25 November 2026
-
-I extracted the supplied `Financial Engineering.zip` and ran the original course tests in the execution environment:
-
-- Callable-bond test suite: **66 passed** (8.79 seconds), with the archived shared `Case 1/Data` modules available.
-- Mortality-model test suite: **10 passed** (2.12 seconds).
-- Portfolio synthetic financial invariants: **6 passed** using Python `unittest`.
-
-The callable-bond folder now contains local copies of the shared `forward_swap.py` and `swap_curves.py` dependencies, making its Python imports self-contained. **This does not make the Bloomberg curve workbook available** and does not establish a clean-clone run of the pricing CLI.
-
-The original uploaded archive contains an earlier Case 3 model set than the shared GitHub repository's integrated `case3_model.py` and `cashflow_match_v2.py`. A complete integrated ALM run and numerical reconciliation have **not** been executed or validated. Do not interpret published VaR, solvency or IRR estimates as newly independently verified.
-
-## Validation update — 25 November 2026
-
-The supplied course archive was inspected locally and the following checks were run:
-
-| Check | Result | Scope |
+| Area | Result | Evidence |
 | --- | --- | --- |
-| Callable-bond `pytest` suite | **66 passed** | Original archive layout with shared `forward_swap.py` available |
-| Mortality `pytest` suite | **10 passed** | Standalone demographic model |
-| VaR mathematical-invariant tests | **5 passed** | Gaussian VaR/ES, empirical tails, PSD covariance, simulated covariance and horizon aggregation |
-| Original Case 1 `Final version.py` | **Completed successfully** | Supplied local Bloomberg workbook; source output is not independently audited |
-| Syntax parsing of archive Python files | **33 parsed, 0 syntax errors** | Syntax only, not execution |
+| Python syntax | **Passed** | 33 Python files in the uploaded course archive parsed without syntax errors. |
+| Callable-bond unit tests | **66 passed** | Original course test suite executed in the extracted archive with its shared curve modules available. |
+| Mortality component tests | **10 passed** | Original actuarial mortality test suite. |
+| VaR mathematical tests | **5 passed** | Synthetic tests for covariance projection, Gaussian scenarios, horizon aggregation and loss-tail measures. |
+| Synthetic ALM identities | **11 passed** | Guarantee accumulation, election fractions, discounting, duration, key-rate DV01 and surplus sign. |
+| Callable NC4 pricing | **Repriced** | Seven-year, NC4, single-call, 15% volatility, 31-Aug-2026 EUR swap curve. Price check = 100. |
+| Integrated Case 3 | **Successful end-to-end run** | GitHub Actions run [#45632960847](https://github.com/ishita-p98/Financial-Engineering/actions/runs/45632960847). |
+| Case 3 two-stage optimizer | **Passed output checks** | Full EUR 5bn allocation, portfolio/KRD outputs, cash-flow report and chart generated. |
+| Case 3 election sensitivity | **Passed** | Re-optimized 0%, 25%, 50%, 75% and 100% lump-sum elections. |
+| Case 3 historical simulation | **Passed** | 468 overlapping one-year scenarios; tagged outputs and stress results generated. |
+| Case 3 Monte Carlo | **Passed** | Student-t and Gaussian paths generated and validated. |
+| Case 3 receiver-IRS overlay | **Passed** | Final-presentation 15Y/30Y receive-fixed overlay rerun under HS and MC. |
+| GitHub CI | **Passed** | Latest synthetic/pricing/mortality test workflow completed successfully. |
 
-**Important calibration discrepancy:** The locally rerun Case 1 model produced PCA + GARCH VaR of approximately **€240.68m** and ES of **€322.63m**, while the historical CSV committed in this repository records **€241.48m** and **€324.79m**. Delta-Normal and Monte Carlo figures agree closely. Until calibration inputs and code revisions are reconciled, the PCA + GARCH results should be treated as **version-dependent**, not a single verified figure.
+## Canonical Case 3 implementation
 
-The published Case 1 curve loader has been modified to avoid loading licensed market data merely on import. The new five-test VaR suite is committed in `01-interest-rate-risk-var/src/tests/`. **These tests have not yet been executed from a fresh clone of this exact GitHub commit.**
+The selected implementation is the later integrated shared-course version:
+- `case3_model.py` — liabilities, portfolios, FX, futures, historical simulation, Monte Carlo, VIX/Heston and stress tests.
+- `cashflow_match_v2.py` — two-stage cash-flow dedication and key-rate DV01 optimization.
+- `alm_fixed_income_.py` — curve, liability, bond-universe and analytics helpers.
+- `return_book.py` — contribution deployment and the 90/10 profit-sharing projection.
 
-**Outstanding:** run the integrated Case 3 optimization/Monte Carlo workflow with its full source workbooks and dependencies; validate final presentation figures against consistent model configurations; refactor and lint all Python modules; establish a fully self-contained, clean-clone execution path.
+The GitHub Actions workflow clones the public shared course repository at run time, checks that the canonical source files match this portfolio copy, and runs the model using the corresponding workbooks in an ephemeral runner. Raw workbooks are **not committed** to this repository. The resulting derived reports and tables are published under [Case 3 reproduced outputs](03-life-insurance-alm/reproduced/).
 
-## Verification status
-**Published:** selected Python models, callable-bond tests, historical CSV outputs, detailed assumptions and result documentation.
+## Reproduced Case 3 results: keep configurations separate
 
-**Validation performed locally on the supplied course archive:** the callable-bond suite passed **66 tests** with the shared curve modules available; the independent mortality suite passed **10 tests**. All **33 Python files** extracted from the available archive passed syntax parsing. These tests do **not** validate the full Case 1 historical backtest, the integrated Case 3 ALM pipeline, market-data integrity or agreement with all presentation figures. The callable-bond suite was tested with its original archive layout and a shared-module search path, not by executing a clean GitHub clone.\n\n**Not claimed:** that all models have been rerun successfully in this reorganized folder layout, that historical market data can be freely redistributed, or that the results constitute live investment prices or regulatory certifications.
+### Fixed-income optimizer
+The run using the two-stage KRD optimizer reports a liability PV of **€6.41bn**, liability duration **20.0 years**, and liability convexity **472**. With the expanded ZCB/ultra-long bond universe, Stage 2 uses 25 instruments (7 zero-coupon, longest maturity 94 years), achieves an approximately **€1.8m/bp surplus DV01 gap**, and reports **zero PV external top-up**. The residual receiver-swap sizing is approximately **€2.79bn at 15Y and €0.27bn at 30Y**.
 
-## Model variants
-The shared repository contains multiple model iterations. Do not combine results from different valuation dates, liability definitions, portfolio deployment states, hedges or confidence levels. In particular, the Case 3 `€6.41bn` and `€6.81bn` liability PV views and the 99% / 99.5% VaR views are not the same configuration.
+### Integrated market-risk engine
+The integrated risk engine uses a separate liability valuation setup and reports liability PV **€6.81bn**, assets **€10.0bn** and economic surplus **€3.19bn**. Do not combine its risk values with the optimizer's €6.41bn liability PV as though they were a single valuation snapshot.
 
-## Attribution
-Group work is credited collectively. The original source repository is linked for transparency. Any changes made specifically for the portfolio should be identified separately from the group's historical deliverables.
+- **HS, automatic equity-futures overlay:** 1-year 99% surplus VaR **€1.195bn**; applied equity-futures short about **13.8%**.
+- **HS, receiver-IRS overlay, no equity-futures overlay:** surplus VaR **€845m**, ES **€1.001bn**; 2008 replay surplus P&L **−€2.603bn**. The overlay is 15Y €2.8bn and 30Y €0.3bn receive-fixed.
+- **MC, no IRS overlay:** Student-t 20,000-path 1-year 99% surplus VaR **€1.803bn**.
+- **MC, receiver-IRS overlay:** Student-t 10,000-path surplus VaR **€1.721bn**, ES **€2.075bn**.
+
+These outputs correspond to **different risk configurations and path counts**. The difference between them must not be interpreted as a pure hedge effect without matching every setting.
+
+## Case 2 — final NC4 single-call rerun
+
+The final presentation selects **7Y NC4 single-call**, not the NC3 or NC2 Bermudan examples. On the saved 31-Aug-2026 EUR curve and the group's Hull–White assumptions, the model reprices the coupon at **340.7931bp**, versus **325.19bp** for the bullet. Effective duration is **5.13** versus **6.16**, and effective convexity is **−83.68** versus **+46.20**. NC4-specific scenario and key-rate CSVs are included in the repository.
+
+## Market data and licensing
+
+Bloomberg-derived and other workbook inputs remain outside this public repository. The integration workflow obtains the publicly available source workbooks from the shared course repository into a temporary runner; it publishes only derived outputs and no raw workbooks. This setup relies on the continued public availability and permissions associated with the source repository. The models should not be represented as independent Bloomberg-data validation or regulatory certification.
+
+## What the tests do and do not establish
+
+Tests verify selected code paths, mathematical identities, model output structure and key constraints. They do not prove that the financial assumptions are economically correct, that historical input data are error-free, or that simplified models meet regulatory standards. The All-Kanns insurer is fictional and the Solvency II analysis is illustrative, not a regulatory submission.
+
+## Running the checks
+
+- Lightweight tests: `python -m unittest discover -s tests -p "test_*.py" -v`
+- Callable bond: from `02-callable-bond/src`, run `python -m pytest -q tests`
+- VaR mathematical tests: from `01-interest-rate-risk-var/src`, run `python -m pytest -q tests/test_risk_math.py`
+- Mortality tests: `python -m pytest -q 03-life-insurance-alm/src/test_mortality.py`
+- Full Case 3 optimization and risk pipeline: use the [Case 3 integrated ALM GitHub Actions workflow](.github/workflows/case3-integrated-validation.yml). Its generated summaries are published to the Case 3 `reproduced/` folder.

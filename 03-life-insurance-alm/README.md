@@ -36,7 +36,34 @@ The LMP and RSP have different success criteria. The LMP is judged by its abilit
 
 **Interpretation:** these are results from different group model runs and presentation slides; they should **not** be forced into one reconciled snapshot. The IRR, risk and solvency numbers depend on deployment timing, election assumptions, hedge state and risk-model specification.
 
-## Canonical model version
+## End-to-end reproduced results
+
+The canonical Case 3 implementation was run successfully from GitHub Actions with the matching course workbooks retrieved into an ephemeral runner. The optimizer, 0–100% policyholder election reruns, historical simulation, Monte Carlo, and final-presentation receiver-IRS overlay all completed successfully.
+
+**Optimizer (two-stage cash-flow dedication + KRD shaping):** The expanded ZCB/ultra-long universe uses 25 instruments (7 zero-coupon, longest 94 years). Stage 2 reports duration 29.2 years, convexity 332, asset DV01 €14.6m/bp against liability €12.8m/bp, residual surplus DV01 gap −€1.8m/bp and zero PV external top-up. The optimizer's liability valuation is €6.41bn (duration 20.0 years).
+
+**Integrated 1-year 99% risk engine:** This is a separate valuation configuration: assets €10.0bn, liability PV €6.81bn, economic surplus €3.19bn and funding ratio 1.47.
+
+| Risk configuration | Asset VaR | Surplus VaR | Surplus ES |
+|---|---:|---:|---:|
+| Historical simulation, automatic equity-futures overlay (~13.8%) | €2.384bn | **€1.195bn** | €1.255bn |
+| Historical simulation, 15Y/30Y receive-fixed IRS overlay, futures at 0% | €3.449bn | **€0.845bn** | €1.001bn |
+| Monte Carlo, Student-t, no IRS (20,000 paths) | €2.284bn | **€1.803bn** | €1.923bn |
+| Monte Carlo, Student-t, with IRS (10,000 paths) | €3.908bn | **€1.721bn** | €2.075bn |
+
+The receiver-swap case uses €2.8bn at 15Y and €0.3bn at 30Y. Higher asset VaR under the IRS overlay is expected because receive-fixed swaps add duration to the asset book; the reported surplus VaR is the more decision-relevant liability-relative measure. The two Monte Carlo cases have different path counts and should not be interpreted as a controlled one-variable comparison.
+
+**Policyholder election sensitivity:** the optimizer re-runs at 0%, 25%, 50%, 75% and 100% lump-sum election. At the 50/50 base case the optimizer liability PV is €6.41bn, duration about 20.0 years and year-15 lump liability about €5.65bn.
+
+[Reproduced fixed-income optimization report](reproduced/fixed-income/REPORT.md) · [Election sensitivity](reproduced/elections/ELECTIONS_REPORT.md) · [HS receiver-IRS report](reproduced/risk/HS_REPORT_full_irs.md) · [Monte Carlo receiver-IRS report](reproduced/risk/MC_REPORT_mc_full_irs.md).
+
+![Reproduced cash-flow and KRD match](reproduced/fixed-income/cfmatch_v2.png)
+
+![Receiver-IRS historical-simulation risk output](reproduced/risk/hs_charts_full_irs.png)
+
+![Receiver-IRS Monte Carlo output](reproduced/risk/mc_charts_mc_full_irs.png)
+
+\n## Canonical model version
 
 **This portfolio uses the later integrated Case 3 implementation from the shared GitHub repository**: `src/case3_model.py` for the risk and liability engine and `src/cashflow_match_v2.py` for the two-stage fixed-income optimizer. Earlier archived prototypes are not used as alternative headline models. The standalone mortality module remains a supporting, independently tested component, not a second ALM pipeline.
 

@@ -1,43 +1,75 @@
 # Technical audit and validation matrix
 
-**Updated 25 November 2026.** The project is a curated copy of collaborative coursework. This page separates tests that have actually run from model outputs that still need a source-data rerun.
+**Audit date: 25 November 2026.** This is an evidence-based record of the repository's checks and model reruns. The project is coursework for a fictional All-Kanns insurer and corporate finance risk case studies; it is not an institutional valuation or regulatory opinion.
 
-## Latest automated validation
+## Validation status
 
-The GitHub Actions workflow now requests syntax parsing and the original callable-bond, VaR and mortality suites, in addition to the synthetic financial checks. **Workflow publication is not evidence of a successful run.** Verify the latest commit in [Actions](https://github.com/ishita-p98/Financial-Engineering/actions/workflows/synthetic-tests.yml). The integrated Case 3 model is not covered by these data-independent checks.
-
-## Executed checks
-
-| Component | Status | Evidence and scope |
+| Requirement | Status | Evidence |
 | --- | --- | --- |
-| Callable-bond pricing | **66 unit tests passed** | Run in the extracted original course archive, with shared modules present. Not a clean clone of this reorganized repository. |
-| Mortality model | **10 unit tests passed** | Standalone actuarial component in the original archive. |
-| VaR mathematical functions | **5 tests passed** | Synthetic covariance, scenario generation, VaR/ES and horizon invariants in a local validation environment. |
-| Cross-case financial invariants | **6 tests passed** | Synthetic, data-independent tests: guarantee accumulation, par bullet, call-option value, surplus identity and tail ordering. Run locally with Python's unittest. |
-| Original Case 1 VaR script | **Executed with original workbook** | Historical inputs available in the uploaded archive. Not an independent audit of the reported financial exposure. |
-| Full Case 3 integrated ALM | **Not yet validated** | The uploaded course archive lacks the later integrated `case3_model.py` and `cashflow_match_v2.py` source revisions found in the shared GitHub repository. Reproducing their reported outputs requires the exact input workbooks, model versions and run configurations. |
+| Scope limited to the assigned B cases | **Complete** | Main README and three project folders. |
+| Case 1 code, data handling and risk tests | **Validated components** | Source scripts, saved model outputs and five independent mathematical tests. |
+| Case 2 pricing engine | **Validated** | 66 original unit tests passed; NC4 scenario, duration, convexity and KRD rerun against the group's EUR swap curve. |
+| Case 3 canonical source | **Pinned and matched** | Integrated scripts are checked byte-for-byte against the public shared course repository during CI. |
+| Case 3 optimizer | **End-to-end passed** | Optimized EUR 5bn portfolio, cash-flow coverage, KRD table, report and chart generated. |
+| Case 3 policyholder elections | **End-to-end passed** | 0/25/50/75/100% lump-sum sensitivity rerun. |
+| Case 3 historical simulation | **End-to-end passed** | 468 overlapping 52-week scenarios with automatic equity-futures overlay. |
+| Case 3 Monte Carlo | **End-to-end passed** | Student-t and Gaussian models; full output tables validated. |
+| Case 3 receiver-IRS overlay | **End-to-end passed** | HS and MC rerun with 15Y €2.8bn + 30Y €0.3bn receiver swaps. |
+| Source workbooks in portfolio repo | **Intentionally excluded** | Retrieved into ephemeral runner; no raw Excel workbooks are published. |
+| Automated test workflow | **Passed** | [GitHub Actions](https://github.com/ishita-p98/Financial-Engineering/actions). |
 
-## Results reconciliation: what must not be mixed
+## Case 1 — interest-rate VaR
+The historical saved CSV and rerun differ slightly for the PCA + GARCH result. The earlier saved result is €241.48m 10-day 95% VaR; a local rerun gave approximately €240.68m. Delta-Normal and Monte Carlo agree more closely. The discrepancy is documented as version/calibration dependent; no silent replacement was made.
 
-### Case 1 — Vonovia
-The saved CSV gives Delta-Normal **€287.64m**, Monte Carlo **€288.31m**, and PCA + GARCH **€241.48m** 10-day 95% VaR. A prior local run yielded approximately **€240.68m** for the PCA + GARCH result. The source code and model inputs must be version-matched before calling this difference resolved. A VaR backtest breach rate is not proof of predictive accuracy without sample size and test details.
+The exposure model uses an assumed five-year aggregate modified duration rather than instrument-by-instrument debt and derivative sensitivities. The results are therefore a simplified case model, not Vonovia's internal VaR.
 
-### Case 2 — Callable bond
-The final pitch selected **7Y NC4 single-call**, with model coupon **340.79bp** versus **325.19bp** bullet. The saved **NC3** scenario output and **NC2 Bermudan** scenario output are *not* the final NC4 scenario results. Their rate-shock P&L figures must not be presented as NC4 P&L. The pricing model assumes an annual single curve and uncalibrated short-rate volatility.
+## Case 2 — callable bond
+The final recommendation is **7Y NC4 single-call**. The rerun uses the 31-Aug-2026 EUR swap curve, 15% volatility, Hull–White one-factor tree, mean reversion 3%, 12 steps/year, par call price and €500m notional.
 
-### Case 3 — All-Kanns
-Different saved configurations report **€6.41bn** and **€6.81bn** guaranteed-liability PV, and different 99% historical-simulation versus 99.5% capital views. The 15-year IRR, election mix, investment deployment and receive-fixed IRS overlay must all be fixed before comparing model outputs. The simplified Solvency II figures are not a regulatory filing.
+- Bullet par coupon: **325.19bp**
+- NC4 single-call par coupon: **340.7931bp**
+- Call premium: **15.6031bp**
+- Effective duration: **5.1266** callable vs **6.1602** bullet
+- Effective convexity: **−83.6835** callable vs **+46.2016** bullet
+- Price check: **100.00**
 
-## Reproducibility without licensed market data
+The prior shared NC3 single-call and NC2 Bermudan P&L examples are not NC4 results and are retained only as comparisons.
 
-- Keep Bloomberg-derived raw workbooks out of this public repository pending permission.
-- Preserve original group source links and record which models require workbooks.
-- Use synthetic tests for mathematical identities; do not present them as validation of market calibration.
-- Do not silently modify historical numerical outputs. Record any corrected version separately, including input date, model settings, tests and original comparison.
-- Use the [reproducibility guide](REPRODUCIBILITY.md) to distinguish inspectable code from an independently reproducible pipeline.
+## Case 3 — All-Kanns
 
-## Chart integrity
-The six original chart paths embedded in the case READMEs were checked against the shared course repository's file tree. They exist there, but the figures are **externally hosted** rather than committed to this repository.
+### Optimizer configuration
+The two-stage optimizer reports liability PV **€6.41bn**, duration **20.0y**, convexity **472**. For the expanded ZCB/ultra-long universe, it uses 25 bonds, 7 zero-coupon, maximum maturity 94 years. Stage 2 yields an approximate surplus DV01 gap of **−€1.8m/bp** and no PV external top-up. Receiver-swap residual sizing is €2.79bn at 15Y and €0.27bn at 30Y.
 
-## Remaining engineering tasks
-A full clean-clone build, integrated Case 3 rerun, lint/refactor across all Python files and a complete numerical reconciliation **remain open**. The source archive and shared repository contain different revisions of Case 3; selecting and pinning a consistent model/data snapshot is required before claiming those tasks complete.
+### Integrated risk configuration
+The integrated risk model reports liability PV **€6.81bn**, assets **€10bn**, surplus **€3.19bn** and funding ratio **1.47**. This liability valuation is different from the optimizer's €6.41bn view and is not combined with it.
+
+| Configuration | 99% 1-year surplus VaR | Other result |
+| --- | ---: | --- |
+| HS automatic equity-futures overlay | **€1.195bn** | futures short about 13.8% of equity MV |
+| HS with receive-fixed IRS, futures pinned to 0% | **€845m** | ES €1.001bn; 2008 replay surplus −€2.603bn |
+| MC Student-t, no IRS | **€1.803bn** | 20,000 paths |
+| MC Student-t with IRS | **€1.721bn** | 10,000 paths; ES €2.075bn |
+
+These are distinct model configurations and path counts. They should not be interpreted as a controlled experiment varying only one hedge variable.
+
+### Regulatory and economic interpretation
+The Solvency II figures remain **illustrative**. They are not a regulator-approved internal model or Standard Formula calculation. The model simplifies risk margin, own-funds treatment, MCR mechanics and real-world insurance governance.
+
+## Reproducibility
+The integrated Case 3 GitHub Actions workflow:
+1. Clones the canonical public course repository.
+2. Verifies the selected Case 3 source files match this portfolio.
+3. Loads the matching input workbooks into an ephemeral runner.
+4. Runs the two-stage bond optimizer, policyholder elections, historical simulation, Monte Carlo and receiver-swap overlay.
+5. Validates expected reports and non-empty numerical outputs.
+6. Publishes derived reports, tables and charts without committing raw workbooks.
+
+Latest successful end-to-end run: [Case 3 integrated ALM validation](https://github.com/ishita-p98/Financial-Engineering/actions/runs/45632960847).
+
+## Remaining model limitations
+- The Case 1 PCA + GARCH historical output differs slightly from one rerun; source calibration/version should be pinned before treating it as one exact result.
+- The optimizer and integrated risk model use different liability PV configurations (€6.41bn and €6.81bn). These are identified separately, not falsely reconciled.
+- The MC comparisons above use different path counts and model configurations; do not claim the delta is a pure IRS hedge effect.
+- Bloomberg-derived source data are accessed from the public course repository at runtime; the portfolio itself does not distribute those workbooks.
+- Source code is retained close to the canonical group implementation to preserve provenance. New validation wrappers and tests are separately identified.
+

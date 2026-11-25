@@ -8,7 +8,7 @@ This is the portfolio's most substantial technical workstream. The files below a
 
 This selection is based on documented model scope, **not** on a successful integrated execution. Reported results remain attributed to their saved configurations.
 
-## Model architecture
+## Latest end-to-end run\n\nThe [integrated Case 3 GitHub Actions workflow](../../.github/workflows/case3-integrated-validation.yml) successfully ran the optimizer, policyholder election sensitivity, historical simulation, Monte Carlo and final-presentation receiver-IRS overlay. Reproduced reports and derived outputs are committed under [reproduced/](reproduced/). The workflow obtains the source workbooks from the public shared course repository in an ephemeral runner; raw Excel files are not stored here.\n\n## Model architecture
 | Step | Code / output | Purpose |
 | --- | --- | --- |
 | 1. Liability cash flows | [case3_model.py](src/case3_model.py) | 1% guarantee, year-15 elections, pension tail and liability valuation |
