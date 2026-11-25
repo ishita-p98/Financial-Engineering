@@ -64,6 +64,7 @@ jobs:
           cmp 03-life-insurance-alm/src/cashflow_match_v2.py /tmp/case3/cashflow_match_v2.py
           cmp 03-life-insurance-alm/src/return_book.py /tmp/case3/return_book.py
           cmp 03-life-insurance-alm/src/alm_fixed_income_.py /tmp/case3/alm_fixed_income_.py
+          cp 03-life-insurance-alm/src/run_irs_scenario.py /tmp/case3/run_irs_scenario.py
 
       - name: Run fixed-income cash-flow and KRD optimizer
         working-directory: /tmp/case3
@@ -110,6 +111,10 @@ jobs:
         working-directory: /tmp/case3
         run: python case3_model.py mc full ${{ inputs.mc_paths }}
 
+      - name: Run final-presentation receiver-swap overlay (HS and MC)
+        working-directory: /tmp/case3
+        run: python run_irs_scenario.py
+
       - name: Validate integrated risk outputs
         working-directory: /tmp/case3
         run: |
@@ -119,6 +124,10 @@ jobs:
           required = [
               "results_var/MC_REPORT_mc_full.md",
               "results_var/mc_full_student_t_nu5_pnl.csv",
+              "results_var/HS_REPORT_full_irs.md",
+              "results_var/MC_REPORT_mc_full_irs.md",
+              "results_var/scenario_pnl_full_irs.csv",
+              "results_var/mc_full_irs_student_t_nu5_pnl.csv",
           ]
           for name in required:
               p = Path(name)
@@ -139,7 +148,10 @@ jobs:
                   frame = pd.read_csv(name)
                   if frame.empty:
                       raise SystemExit(f"Empty result table: {name}")
-          print("Integrated HS and MC output checks passed.")
+          for name in ["results_var/scenario_pnl_full_irs.csv", "results_var/mc_full_irs_student_t_nu5_pnl.csv"]:
+              if pd.read_csv(name).empty:
+                  raise SystemExit(f"Empty receiver-swap result: {name}")
+          print("Integrated HS, MC, and receiver-swap overlay checks passed.")
           PY
 
       - name: Publish validated Case 3 summaries to the portfolio
@@ -153,6 +165,12 @@ jobs:
             cp /tmp/case3/results_v2/elections/ELECTIONS_REPORT.md /tmp/case3/results_v2/elections/summary.csv "$target/elections/" 2>/dev/null || true
           fi
           cp /tmp/case3/results_var/MC_REPORT_mc_full.md "$target/risk/"
+          cp /tmp/case3/results_var/HS_REPORT_full_irs.md "$target/risk/"
+          cp /tmp/case3/results_var/MC_REPORT_mc_full_irs.md "$target/risk/"
+          cp /tmp/case3/results_var/scenario_pnl_full_irs.csv "$target/risk/"
+          cp /tmp/case3/results_var/component_var_full_irs.csv "$target/risk/"
+          cp /tmp/case3/results_var/stress_tests_full_irs.csv "$target/risk/"
+          cp /tmp/case3/results_var/mc_full_irs_student_t_nu5_pnl.csv "$target/risk/"
           cp /tmp/case3/results_var/HS_REPORT_full_h*.md "$target/risk/"
           cp /tmp/case3/results_var/scenario_pnl_full_h*.csv "$target/risk/"
           cp /tmp/case3/results_var/component_var_full_h*.csv "$target/risk/"
