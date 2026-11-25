@@ -171,6 +171,8 @@ jobs:
           cp /tmp/case3/results_var/component_var_full_irs.csv "$target/risk/"
           cp /tmp/case3/results_var/stress_tests_full_irs.csv "$target/risk/"
           cp /tmp/case3/results_var/mc_full_irs_student_t_nu5_pnl.csv "$target/risk/"
+          cp /tmp/case3/results_var/hs_charts_full_irs.png "$target/risk/"
+          cp /tmp/case3/results_var/mc_charts_mc_full_irs.png "$target/risk/"
           cp /tmp/case3/results_var/HS_REPORT_full_h*.md "$target/risk/"
           cp /tmp/case3/results_var/scenario_pnl_full_h*.csv "$target/risk/"
           cp /tmp/case3/results_var/component_var_full_h*.csv "$target/risk/"
