@@ -1,0 +1,11 @@
+numpy
+pandas
+scipy
+matplotlib
+openpyxl
+pytest
+scikit-learn
+statsmodels
+arch
+cvxpy
+pyyaml
