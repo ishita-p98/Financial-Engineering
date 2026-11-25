@@ -38,6 +38,9 @@ _WANTED = ("swap_curves.py", "forward_swap.py")
 _SUBS = (
     "",
     "Data",
+    "../../01-interest-rate-risk-var/src",
+    "../01-interest-rate-risk-var/src",
+    "01-interest-rate-risk-var/src",
     "Financ-Engeneering",
     "Financ-Engeneering/Data",
     "Financ-Engeneering/Financ-Engeneering",

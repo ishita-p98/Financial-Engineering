@@ -29,7 +29,7 @@ The final presentation includes backtesting rather than relying on in-sample VaR
 | Monte Carlo | 11.4% | 5.0% |
 | PCA + GARCH | 5.8% | 5.0% |
 
-The group favored the conditional-volatility model **for this backtest**; it is not universally superior. It also compared spot and forward swap hedges. The final presentation recommends a **five-year spot payer interest-rate swap**, reporting a hedged VaR of approximately **€16m**, about **84% lower** than the unhedged backtest benchmark. A *payer* swap (pay fixed, receive floating) is the economically relevant hedge against floating-rate debt. The swap has approximately zero PV at inception, not zero future economic cost.
+The group favored the conditional-volatility model **for this backtest**; it is not universally superior. It also compared spot and forward swap hedges. The final presentation recommends a **five-year spot payer interest-rate swap**, reporting a hedged VaR of approximately **€16m**, about **84% lower** than the unhedged backtest benchmark. A *payer* swap (pay fixed, receive floating) hedges **rising floating-rate cash interest expense**. For a mark-to-market liability-duration exposure, the sign and hedge direction can differ; these views must not be conflated. The swap has approximately zero PV at inception, not zero future economic cost.
 
 ## What matters to a treasury
 - Separate **earnings/cash-flow risk** from **PV risk**.
