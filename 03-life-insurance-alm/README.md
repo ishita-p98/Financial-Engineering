@@ -36,6 +36,10 @@ The LMP and RSP have different success criteria. The LMP is judged by its abilit
 
 **Interpretation:** these are results from different group model runs and presentation slides; they should **not** be forced into one reconciled snapshot. The IRR, risk and solvency numbers depend on deployment timing, election assumptions, hedge state and risk-model specification.
 
+## Canonical model version
+
+**This portfolio uses the later integrated Case 3 implementation from the shared GitHub repository**: `src/case3_model.py` for the risk and liability engine and `src/cashflow_match_v2.py` for the two-stage fixed-income optimizer. Earlier archived prototypes are not used as alternative headline models. The standalone mortality module remains a supporting, independently tested component, not a second ALM pipeline.
+
 ## Explore the full case
 1. [Liabilities, pension elections and cash-flow timing](liability-modelling.md)
 2. [Portfolio construction, fixed-income optimization and hedging](portfolio-and-hedging.md)

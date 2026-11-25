@@ -11,6 +11,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Canonical Case 3 model selection
+
+Use **only the later integrated implementation** in the shared GitHub repository (`case3_model.py` + `cashflow_match_v2.py`) as the primary Case 3 model. The earlier archive versions are superseded and will not be combined with its results. Standalone mortality tests remain component-level evidence, not validation of the integrated pipeline. A complete end-to-end rerun still requires the matching workbooks.
+
 ## Data requirements and honest limits
 Some scripts refer to Excel workbooks in the original directory structure, and the larger Bloomberg-derived datasets have **not** been republished in this curated repository. Source code is therefore available for inspection, but **end-to-end execution is not yet self-contained**.
 
