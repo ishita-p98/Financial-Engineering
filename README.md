@@ -18,6 +18,10 @@ A [synthetic ALM example](03-life-insurance-alm/examples/alm_demo.py) demonstrat
 
 Selected original group Python models, test files and result tables are included under each case. See [technical audit and validation matrix](TECHNICAL_AUDIT.md), [reproducibility and data limitations](REPRODUCIBILITY.md) and [dependencies](requirements.txt). The complete raw Bloomberg workbooks are not included, so full end-to-end execution requires the original data.
 
+## Automated model checks
+
+[GitHub Actions](https://github.com/ishita-p98/Financial-Engineering/actions/workflows/synthetic-tests.yml) runs the synthetic financial tests and, following the latest update, the callable-bond, VaR and mortality regression suites. A successful run of the **latest commit** is required before calling the expanded checks verified. Full Bloomberg-calibrated ALM reproduction remains separate.
+
 ## How to read this portfolio
 
 Each case separates the **assignment**, **the group's final presentation**, **model assumptions**, **reported outputs**, and **limitations**. Results are historical coursework outputs, not live prices, current investment advice or independently audited regulatory metrics.

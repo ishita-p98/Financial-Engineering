@@ -2,6 +2,10 @@
 
 This is a curated copy of **collaborative group coursework**, not an independent clean-room implementation. The source code and model outputs come from the [shared course repository](https://github.com/benthebender/Financ-Engeneering). The three final presentations determine the selected cases and conclusions.
 
+## Validation boundary
+
+The canonical integrated Case 3 model remains **not independently end-to-end validated**. This repository is an inspectable academic case study with tested mathematical components, not a fully certified actuarial, investment or regulatory calculation system. The raw Bloomberg-derived inputs are intentionally not republished. The expanded GitHub Actions workflow must complete successfully before its status can be reported as passed.
+
 ## Quick environment
 Python 3.11+ recommended. Core packages used across the code include NumPy, pandas, SciPy, Matplotlib, openpyxl, pytest and (for some models) scikit-learn, statsmodels, arch, cvxpy and PyYAML. Exact versions were not locked in the original repository; see `requirements.txt` for a starting environment, **not** a guaranteed reproducible lockfile.
 

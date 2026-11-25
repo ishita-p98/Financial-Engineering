@@ -2,6 +2,10 @@
 
 **Updated 25 November 2026.** The project is a curated copy of collaborative coursework. This page separates tests that have actually run from model outputs that still need a source-data rerun.
 
+## Latest automated validation
+
+The GitHub Actions workflow now requests syntax parsing and the original callable-bond, VaR and mortality suites, in addition to the synthetic financial checks. **Workflow publication is not evidence of a successful run.** Verify the latest commit in [Actions](https://github.com/ishita-p98/Financial-Engineering/actions/workflows/synthetic-tests.yml). The integrated Case 3 model is not covered by these data-independent checks.
+
 ## Executed checks
 
 | Component | Status | Evidence and scope |
