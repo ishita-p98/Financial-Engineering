@@ -64,7 +64,7 @@ The integrated Case 3 GitHub Actions workflow:
 5. Validates expected reports and non-empty numerical outputs.
 6. Publishes derived reports, tables and charts without committing raw workbooks.
 
-Latest successful end-to-end run: [Case 3 integrated ALM validation](https://github.com/ishita-p98/Financial-Engineering/actions/runs/45633700394).
+Latest successful end-to-end run: [Case 3 integrated ALM validation](https://github.com/ishita-p98/Financial-Engineering/actions/runs/45634187841).
 
 ## Remaining model limitations
 - The Case 1 PCA + GARCH historical output differs slightly from one rerun; source calibration/version should be pinned before treating it as one exact result.
