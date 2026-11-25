@@ -10,6 +10,10 @@ The supporting work uses two optimization stages:
 
 The model includes issuer and instrument concentration constraints. Ultra-long nominal bonds and zero-coupon securities extend the available maturity profile and improve matching of the distant pension tail.
 
+![Fixed-income cash-flow matching](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/cf_match_fi.png)
+
+*Original group presentation: dedicated fixed-income cash flows versus liabilities. The reproduced optimizer chart is available in `reproduced/fixed-income/cfmatch_v2.png`.*
+
 ## 2. Why duration alone is not enough
 Two portfolios can have the same total duration but different exposures to curve steepening, flattening and long-end shocks. **Key-rate DV01** measures the change in PV for a small shift at each maturity bucket. The presentation therefore combines:
 - cash-flow matching,
@@ -18,6 +22,10 @@ Two portfolios can have the same total duration but different exposures to curve
 - and a receive-fixed interest-rate swap overlay.
 
 The group reports liability duration of approximately **20 years** and a cash-bond portfolio whose duration varies with the chosen universe (roughly **17–29 years** across versions). It should not be described as a perfect duration or convexity hedge.
+
+![Key-rate duration exposure](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/krd.png)
+
+*Original group presentation: tenor-by-tenor interest-rate sensitivity; a single portfolio duration would hide these gaps.*
 
 ## 3. Receiver swap overlay
 The final recommendation adds approximately **€2.8bn notional at 15Y** and **€0.3bn at 30Y** in **receive-fixed swaps**. Receiving fixed adds positive rate duration to the asset side and is designed to offset the liability's sensitivity to falling EUR rates.
@@ -35,10 +43,18 @@ New contributions of **€0.5bn annually** fund a diversified RSP. The presentat
 
 These approximate categories summarize fourteen index sleeves. The group discusses annual rebalancing and USD exposure hedged to EUR through FX swaps, with a residual rate-differential and rollover risk.
 
+![Return-seeking portfolio target weights](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/rsp_weights.png)
+
+*Original group presentation: the return-seeking sleeve's index allocations, distinct from the guaranteed-liability matching sleeve.*
+
 ## 5. Policyholder profit sharing
 The proposed rule allocates **90% of the return book's yearly investment profit to policyholders**, with **10% retained** by the insurer. The supporting model specifies profit sharing from the benefit phase, distinguishes investment profit from new contributions and includes a loss carry-forward rule.
 
 A high simulated RSP value **before profit sharing** is not equivalent to retained insurer capital **after profit sharing**. Both should be identified separately.
+
+![Profit-sharing projection](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/profit_share.png)
+
+*Original group presentation: the 90/10 policyholder-insurer profit-sharing arrangement changes retained portfolio value.*
 
 ## 6. Rebalancing and glidepath
 The final recommendation calls for annual review of the two-sleeve allocation, a **de-risking glidepath during years 11–15**, and a liquidity reserve of at least **1.1× the next twelve months' outflows** in cash and sovereign assets. This is the group's proposed implementation policy, not a regulatory requirement independently verified here.

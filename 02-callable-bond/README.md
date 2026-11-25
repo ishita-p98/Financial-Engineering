@@ -66,6 +66,18 @@ The key risks include:
 - **Issuer credit and refinancing risk:** the model excludes issuer-specific credit spread, transaction costs and market access.
 - **Synthetic implementation:** receiver swaption plus bullet funding introduces counterparty, basis, collateral and operational considerations.
 
+## Visual comparison — alternative structures
+
+The charts below are **original NC3 single-call comparison outputs**, not plots of the final NC4 recommendation. The NC4-specific numerical tables above are the primary evidence for the final decision.
+
+![NC3 embedded call value comparison](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/CALLABLE%20BOND%207yrNCx/Outputs%20Task%202/7y%20NC3%20single/call_value__7y_NC3.png)
+
+*Original group model: comparison of embedded call value for an NC3 structure.*
+
+![NC3 issuer P&L across yield shifts](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/CALLABLE%20BOND%207yrNCx/Outputs%20Task%202/7y%20NC3%20single/pnl_vs_shift__7y_NC3.png)
+
+*Original group model: nonlinear issuer-side P&L under interest-rate changes for NC3, not the selected NC4.*
+
 ## Original pricing visuals
 
 ![Single-call coupon sensitivity, NC3 comparison](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/CALLABLE%20BOND%207yrNCx/Outputs%20Task%202/7y%20NC3%20single/par_coupon__7y_NC3.png)

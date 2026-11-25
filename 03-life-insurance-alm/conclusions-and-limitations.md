@@ -20,6 +20,10 @@ These are **model outcomes**, not promised investment returns, demonstrated futu
 - It uses **key-rate DV01**, not only a single duration number.
 - It connects return-seeking investments to a **surplus risk budget** and policyholder profit sharing.
 
+![Funding-ratio distribution](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/lc_05_funding_ratio_distribution.png)
+
+*Final group presentation: simulated funding outcomes; interpretation depends on the life-cycle model assumptions and differs from the one-year historical-simulation risk measure.*
+
 ## Where the model is not conclusive
 - The final slides and underlying reports sometimes show **different IRR, VaR and funding figures** because they refer to distinct configurations or presentation summaries.
 - Long-dated zero-coupon and ultra-long bond liquidity, spread and execution risks require independent implementation checks.

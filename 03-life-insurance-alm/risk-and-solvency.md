@@ -15,8 +15,16 @@ The final presentation and supporting models include:
 
 One documented supporting run reports **99% one-year surplus VaR falling from about €1.21bn to €0.85bn after the receiver-IRS overlay**, roughly a **30% reduction**. The presentation also shows a **99.5% one-year** risk/SCR view, with a reported **€0.94bn** SCR and approximately **340%** solvency ratio. These figures have **different confidence levels and configurations**; they should not be conflated.
 
+![Risk-driver contributions](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/risk_drivers.png)
+
+*Original group presentation: standalone driver losses do not add to diversified portfolio VaR because dependencies and netting matter.*
+
 ## Risk budget and equity overlay
 The presentation describes approximately **€3.19bn economic surplus** and a board funding-ratio floor of **1.20**, used to derive a tolerable loss budget. In the recommended configuration, the **equity-futures hedge is 0%** because the interest-rate overlay is presented as sufficient to bring surplus risk within the limit. Other model runs explore dynamic equity hedging.
+
+![Surplus VaR and hedge bridge](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/var_bridge.png)
+
+*Original group presentation: the effect of the receiver-swap strategy on the modelled surplus-risk profile.*
 
 ## Stress testing
 The shared scenario suite includes:
@@ -27,6 +35,10 @@ The shared scenario suite includes:
 - and a longevity shock.
 
 These are deterministic or historical-replay scenarios, **not forecasts**. The presentation also explores 15-year portfolio outcomes and funding under different lump-sum elections.
+
+![Stress-test outcomes](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/stress.png)
+
+*Original group presentation: scenarios reveal exposures not fully captured by a single VaR percentile.*
 
 ## Solvency II interpretation
 The supporting report uses **own funds ≈ economic surplus** and **SCR ≈ 99.5% one-year internal-model surplus VaR**, producing a headline solvency ratio near **340%** with the receiver overlay. It estimates MCR from a simplified regulatory corridor.

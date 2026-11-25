@@ -7,6 +7,16 @@ The group presented a corporate treasury risk-management framework for Vonovia. 
 
 The assigned question was specifically **1b, interest-rate risk from a present-value perspective**, not the other Case Day 1 presentation topics. The common swap/forward-swap exercises support the hedging discussion.
 
+### Market-rate data and risk factors
+
+![EUR swap term structure](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/01_current_curve.png)
+
+*Original group chart: EUR swap curve used as the rate-risk starting point.*
+
+![EUR tenor correlation heatmap](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/04_correlation_heatmap.png)
+
+*Original group chart: historical cross-tenor correlations underlying the covariance-based risk models.*
+
 ## Methodology
 The modelling uses historical EUR par swap curves (1Y–10Y), with independently cleaned tenor observations, rate changes and covariance estimation. The core model treats approximately €31.39bn of identified debt as a simplified rate-sensitive portfolio with an **assumed aggregate modified duration of 5 years**; it is not a security-by-security reconstruction of Vonovia's liabilities and derivatives.
 
@@ -20,6 +30,16 @@ Three models were compared at a **95% confidence level over ten trading days**:
 
 The three principal curve factors are reported to explain **99.34%** of standardized historical variation. These model outputs depend on the duration assumption, risk-factor mapping and historical calibration window.
 
+### Model comparison and assumptions
+
+![Principal-component explained variance](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/06_pca_explained_variance.png)
+
+*Original group chart: concentration of historical curve movements into principal components.*
+
+![VaR sensitivity to duration assumptions](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/11_duration_sensitivity.png)
+
+*Original group chart: why assumed aggregate duration materially affects the loss estimate.*
+
 ## Validation and hedge selection
 The final presentation includes backtesting rather than relying on in-sample VaR alone:
 
@@ -30,6 +50,14 @@ The final presentation includes backtesting rather than relying on in-sample VaR
 | PCA + GARCH | 5.8% | 5.0% |
 
 The group favored the conditional-volatility model **for this backtest**; it is not universally superior. It also compared spot and forward swap hedges. The final presentation recommends a **five-year spot payer interest-rate swap**, reporting a hedged VaR of approximately **€16m**, about **84% lower** than the unhedged backtest benchmark. A *payer* swap (pay fixed, receive floating) hedges **rising floating-rate cash interest expense**. For a mark-to-market liability-duration exposure, the sign and hedge direction can differ; these views must not be conflated. The swap has approximately zero PV at inception, not zero future economic cost.
+
+![Hedge comparison and risk savings](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/13_hedge_savings.png)
+
+*Original group chart: relative hedge performance under the original modelling assumptions.*
+
+![Spot IRS versus forward-starting swap](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/16_spot_irs_vs_forward_swap.png)
+
+*Original group chart: compare hedge structures rather than assuming that any interest-rate swap is equally effective.*
 
 ## What matters to a treasury
 - Separate **earnings/cash-flow risk** from **PV risk**.

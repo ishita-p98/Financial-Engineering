@@ -79,6 +79,18 @@ The group's analysis connects **actuarial cash flows**, **discount-curve constru
 
 A key analytical insight is that **minimizing asset-only VaR is not equivalent to minimizing insurance surplus risk**. Adding duration with a receiver swap may increase asset-value volatility while reducing the mismatch between assets and liabilities. For an insurer, the **funding ratio and surplus distribution** are often the more decision-relevant quantities.
 
+## Presentation visuals and model interpretation
+
+The following images are from the **group's final presentation**. They illustrate the investment recommendation; the independently rerun historical-simulation and Monte Carlo charts above are identified separately.
+
+![Presentation distribution of 15-year IRR](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/lc_03_15year_IRR_distribution.png)
+
+*Final group presentation: long-horizon investment outcomes under its life-cycle Monte Carlo assumptions; not the same as the one-year surplus VaR simulation.*
+
+![Presentation surplus VaR bridge](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/var_bridge.png)
+
+*Final group presentation: risk-reduction narrative from the hedging strategy. Refer to the reproduced HS receiver-IRS report for the matching numerical configuration.*
+
 ## Original group charts
 
 ![Original asset versus liability cash flows](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/cf_match_fi.png)
@@ -101,7 +113,7 @@ A key analytical insight is that **minimizing asset-only VaR is not equivalent t
 
 ## Acknowledgements
 
-This was a collaborative Financial Engineering group project. Thanks to **Jonas and Kira** and the rest of the group for their contributions.
+This was a collaborative Financial Engineering group project. Thanks to **Ben and Kira** and the rest of the group for their contributions.
 
 ## Source and attribution
 - Final group presentation: *Asset Management for the All-Kanns Life Insurance*, 38 pages.

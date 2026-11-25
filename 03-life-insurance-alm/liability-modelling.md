@@ -19,6 +19,20 @@ Pension cash flows depend on the number of surviving policyholders at each futur
 
 A valuation framework discounts expected future benefits using a EUR term structure and compares their present value with available assets and future premiums. The supporting reports include alternative liability valuations (for example **€6.41bn** and **€6.81bn**) under different model configurations. They are not interchangeable without matching valuation dates and assumptions.
 
+## Visual evidence — liabilities and elections
+
+![Annual policyholder cash flows](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/cf_annual.png)
+
+*Original group presentation: the timing of benefit cash flows matters as much as their present value.*
+
+![Policyholder payout election scenarios](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/election.png)
+
+*Original group presentation: alternative payout choices affect year-15 liquidity and the long-dated pension tail.*
+
+![Policyholder election sensitivity](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/lc_06_policyholder_sensitivity.png)
+
+*Original group presentation: modelled sensitivity to policyholder choices; compare with the independently reproduced election table in `reproduced/elections/`.*
+
 ## Analytical takeaway
 The relevant liability is **a schedule of contingent future cash flows**, not a single €11.3bn payment. A robust investment strategy needs cash-flow dedication, long-end interest-rate hedging, sensitivity to pension elections and a funding-ratio view.
 
