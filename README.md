@@ -10,6 +10,10 @@ Three client-facing financial-engineering assignments completed collaboratively 
 | [02 · Callable bond](02-callable-bond/README.md) | Buy refinancing flexibility without overpaying for optionality | **7Y NC4 single-call** structure and relative-value assessment |
 | [03 · Life-insurance ALM](03-life-insurance-alm/README.md) | Invest for guaranteed policyholder benefits and long-tail liabilities | **All-Kanns** two-sleeve investment mandate, fixed-income matching, derivatives and solvency analysis |
 
+## Case 3: verified financial building blocks
+
+A [synthetic ALM example](03-life-insurance-alm/examples/alm_demo.py) demonstrates the policy guarantee, lump-sum election, discounted cash flows, duration and surplus accounting without proprietary data. It is **not** the full investment engine. The example has [11 independent unit tests](tests/test_alm_demo.py), executed locally before publication.
+
 ## Source code and verification
 
 Selected original group Python models, test files and result tables are included under each case. See [technical audit and validation matrix](TECHNICAL_AUDIT.md), [reproducibility and data limitations](REPRODUCIBILITY.md) and [dependencies](requirements.txt). The complete raw Bloomberg workbooks are not included, so full end-to-end execution requires the original data.
@@ -22,6 +26,6 @@ The projects build from **measuring risk**, to **pricing optionality**, to **des
 
 ## Collaboration
 
-These were collaborative Group 2 course projects. Thanks to Ben Lösche, David Wolter, Kira Pedersen, Manuel Blasco Blázquez, Wiktor Murawski and Zhuoran Wang for their contributions.
+These were collaborative Group 2 course projects. Thanks to **Jonas and Kira**, alongside Ben Lösche, David Wolter, Manuel Blasco Blázquez, Wiktor Murawski and Zhuoran Wang, for their contributions.
 
 *The source presentations contain participant identifiers and are not redistributed here. This repository presents a written, attributed synthesis.*
