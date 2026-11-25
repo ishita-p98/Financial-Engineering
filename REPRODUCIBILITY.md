@@ -21,7 +21,7 @@ Some scripts refer to Excel workbooks in the original directory structure, and t
 ## Verification status
 **Published:** selected Python models, callable-bond tests, historical CSV outputs, detailed assumptions and result documentation.
 
-**Not claimed:** that all models have been rerun successfully in this reorganized folder layout, that historical market data can be freely redistributed, or that the results constitute live investment prices or regulatory certifications.
+**Validation performed locally on the supplied course archive:** the callable-bond suite passed **66 tests** with the shared curve modules available; the independent mortality suite passed **10 tests**. All **33 Python files** extracted from the available archive passed syntax parsing. These tests do **not** validate the full Case 1 historical backtest, the integrated Case 3 ALM pipeline, market-data integrity or agreement with all presentation figures. The callable-bond suite was tested with its original archive layout and a shared-module search path, not by executing a clean GitHub clone.\n\n**Not claimed:** that all models have been rerun successfully in this reorganized folder layout, that historical market data can be freely redistributed, or that the results constitute live investment prices or regulatory certifications.
 
 ## Model variants
 The shared repository contains multiple model iterations. Do not combine results from different valuation dates, liability definitions, portfolio deployment states, hedges or confidence levels. In particular, the Case 3 `€6.41bn` and `€6.81bn` liability PV views and the 99% / 99.5% VaR views are not the same configuration.

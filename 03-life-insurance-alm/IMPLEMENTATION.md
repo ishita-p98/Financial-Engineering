@@ -2,7 +2,7 @@
 
 This is the portfolio's most substantial technical workstream. The files below are **selected group source code**, not individually authored claims.
 
-## Model architecture
+## Validated actuarial component\n\nThe [mortality model](src/mortality.py) and its [10 unit tests](src/test_mortality.py) were checked against the supplied course archive: **10 passed**. Its [assumptions](MORTALITY_MODEL.md) and [example summary](results/mortality_summary.txt) are included. This is a standalone demographic component; it does not validate the integrated ALM or liability model.\n\n## Model architecture
 | Step | Code / output | Purpose |
 | --- | --- | --- |
 | 1. Liability cash flows | [case3_model.py](src/case3_model.py) | 1% guarantee, year-15 elections, pension tail and liability valuation |
