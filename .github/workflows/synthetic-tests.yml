@@ -1,16 +1,32 @@
-name: Synthetic financial invariants
+name: Validate financial models (synthetic inputs)
 
 on:
   push:
   pull_request:
 
 jobs:
-  synthetic-tests:
+  validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Run data-independent tests
+          cache: pip
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy matplotlib pytest openpyxl
+      - name: Parse all Python source files
+        run: python -m compileall -q .
+      - name: Run portfolio financial-invariant tests
         run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Run callable-bond numerical regression tests
+        working-directory: 02-callable-bond/src
+        run: python -m pytest -q tests
+      - name: Run interest-rate VaR mathematical tests
+        working-directory: 01-interest-rate-risk-var/src
+        run: python -m pytest -q tests/test_risk_math.py
+      - name: Run actuarial mortality tests
+        working-directory: 03-life-insurance-alm/src
+        run: python -m pytest -q test_mortality.py
