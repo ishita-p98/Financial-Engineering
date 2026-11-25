@@ -47,6 +47,26 @@ The group's analysis connects **actuarial cash flows**, **discount-curve constru
 
 A key analytical insight is that **minimizing asset-only VaR is not equivalent to minimizing insurance surplus risk**. Adding duration with a receiver swap may increase asset-value volatility while reducing the mismatch between assets and liabilities. For an insurer, the **funding ratio and surplus distribution** are often the more decision-relevant quantities.
 
+## Original group charts
+
+![Original asset versus liability cash flows](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/cf_match_fi.png)
+
+*Source: final group's Case 3 presentation assets — fixed-income cash-flow matching.*
+
+![Original portfolio composition](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/portfolio_composition.png)
+
+*Source: final group's Case 3 presentation assets — portfolio allocation.*
+
+![Original funding-ratio distribution](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/lc_05_funding_ratio_distribution.png)
+
+*Source: final group's Case 3 presentation assets — modelled funding outcomes.*
+
+![Original risk drivers](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/Case%203/presentation/assets/risk_drivers.png)
+
+*Source: final group's Case 3 presentation assets.*
+
+[Inspect the model architecture, source code and result tables](IMPLEMENTATION.md).
+
 ## Source and attribution
 - Final group presentation: *Asset Management for the All-Kanns Life Insurance*, 38 pages.
 - [Shared course repository: Case 3](https://github.com/benthebender/Financ-Engeneering/tree/main/Case%203), including models, Excel data, optimization outputs, VaR reports and charts.

@@ -14,7 +14,7 @@ The group's final client pitch recommended a **seven-year fixed-rate bond with o
 | Model | Hull–White one-factor trinomial tree |
 | Exercise | Single call at year 4, at par |
 
-The final presentation describes the premium as the cost of retaining the option to refinance early if rates decline. It also reports scenario benefits of approximately **€18.6m for a 100bp fall** and **€43.6m for a 200bp fall** in its executive summary. The precise payoff and notional conventions must be read with the corresponding scenario tables before extrapolating those figures.
+The final presentation describes the premium as the cost of retaining the option to refinance early if rates decline. Its executive summary also highlights option benefits under falling-rate scenarios. **Caution:** the shared code's €18.6m / €43.6m examples correspond to the **NC2 Bermudan** output, not a verified NC4 single-call scenario. They should not be assigned to the selected NC4 structure without a matching repricing run.
 
 ## Why an issuer pays for a call
 A bullet bond provides fixed-rate certainty but no contractual early-redemption right. A callable bond adds the issuer's option to redeem at a predetermined price. That option benefits the issuer when the continuation value of the outstanding bond exceeds the call price, often when market rates fall.
@@ -46,6 +46,14 @@ The key risks include:
 - **Model risk:** 15% volatility and mean reversion are assumed, not fully calibrated to a swaption surface.
 - **Issuer credit and refinancing risk:** the model excludes issuer-specific credit spread, transaction costs and market access.
 - **Synthetic implementation:** receiver swaption plus bullet funding introduces counterparty, basis, collateral and operational considerations.
+
+## Original pricing visuals
+
+![Single-call coupon sensitivity, NC3 comparison](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/CALLABLE%20BOND%207yrNCx/Outputs%20Task%202/7y%20NC3%20single/par_coupon__7y_NC3.png)
+
+*Source: shared course model. This is an **NC3 comparison chart**, not the recommended NC4 payoff.*
+
+[Inspect the pricing code, tests, assumptions and final NC4 coupon ladder](IMPLEMENTATION.md).
 
 ## Evidence and source
 - Final presentation: *Callable Bonds*, Group 2, especially executive summary, proposal, single-versus-multi-call comparison and pricing discussion.

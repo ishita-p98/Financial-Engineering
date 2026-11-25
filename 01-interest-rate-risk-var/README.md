@@ -38,6 +38,18 @@ The group favored the conditional-volatility model **for this backtest**; it is 
 - Compare hedge choices against maturity structure, basis risk, collateral, accounting and execution constraints.
 - Recognize that using an assumed duration limits firm-specific precision.
 
+## Actual model outputs
+
+![Original group VaR method comparison](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/10_var_method_comparison.png)
+
+*Source: shared group modelling repository; chart is linked, not recreated.*
+
+![Original group hedge backtesting](https://raw.githubusercontent.com/benthebender/Financ-Engeneering/main/output/charts/12_hedge_var_backtest.png)
+
+*Source: shared group modelling repository.*
+
+[Inspect the model code, backtesting data and execution notes](IMPLEMENTATION.md).
+
 ## Evidence and source
 - Final presentation: *Interest Rate Risk — Present Value View*, Group 2, especially slides on VaR methodologies, backtesting, hedge effectiveness and final recommendation.
 - Shared implementation: [Vonovia conclusion and model outputs](https://github.com/benthebender/Financ-Engeneering/blob/main/output/Conclusion.md), [VaR core](https://github.com/benthebender/Financ-Engeneering/blob/main/var_core.py), [hedge backtest](https://github.com/benthebender/Financ-Engeneering/blob/main/hedge_backtest.py).

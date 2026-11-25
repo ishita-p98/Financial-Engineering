@@ -10,6 +10,10 @@ Three client-facing financial-engineering assignments completed collaboratively 
 | [02 · Callable bond](02-callable-bond/README.md) | Buy refinancing flexibility without overpaying for optionality | **7Y NC4 single-call** structure and relative-value assessment |
 | [03 · Life-insurance ALM](03-life-insurance-alm/README.md) | Invest for guaranteed policyholder benefits and long-tail liabilities | **All-Kanns** two-sleeve investment mandate, fixed-income matching, derivatives and solvency analysis |
 
+## Source code and verification
+
+Selected original group Python models, test files and result tables are included under each case. See [reproducibility and data limitations](REPRODUCIBILITY.md) and [dependencies](requirements.txt). The complete raw Bloomberg workbooks are not included, so full end-to-end execution requires the original data.
+
 ## How to read this portfolio
 
 Each case separates the **assignment**, **the group's final presentation**, **model assumptions**, **reported outputs**, and **limitations**. Results are historical coursework outputs, not live prices, current investment advice or independently audited regulatory metrics.
