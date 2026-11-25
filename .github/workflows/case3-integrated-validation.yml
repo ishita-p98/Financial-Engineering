@@ -110,17 +110,23 @@ jobs:
           from pathlib import Path
           import pandas as pd
           required = [
-              "results_var/HS_REPORT_full_overlay.md",
               "results_var/MC_REPORT_mc_full.md",
-              "results_var/scenario_pnl_full_overlay.csv",
-              "results_var/component_var_full_overlay.csv",
-              "results_var/stress_tests_full_overlay.csv",
               "results_var/mc_full_student_t_nu5_pnl.csv",
           ]
           for name in required:
               p = Path(name)
               if not p.is_file() or p.stat().st_size == 0:
                   raise SystemExit(f"Missing/empty integrated risk output: {name}")
+          hs_reports = list(Path("results_var").glob("HS_REPORT_full_h*.md"))
+          hs_scenarios = list(Path("results_var").glob("scenario_pnl_full_h*.csv"))
+          hs_components = list(Path("results_var").glob("component_var_full_h*.csv"))
+          hs_stress = list(Path("results_var").glob("stress_tests_full_h*.csv"))
+          if not (hs_reports and hs_scenarios and hs_components and hs_stress):
+              raise SystemExit("Auto-overlay HS run did not produce all tagged outputs")
+          for p in hs_scenarios + hs_components + hs_stress:
+              frame = pd.read_csv(p)
+              if frame.empty:
+                  raise SystemExit(f"Empty result table: {p}")
           for name in required:
               if name.endswith(".csv"):
                   frame = pd.read_csv(name)
