@@ -18,6 +18,18 @@ Some scripts refer to Excel workbooks in the original directory structure, and t
 - **Case 2:** `src/main.py` expects to find the shared `Swap curves.xlsx` via `curve_io.py` and `swap_curves.py`. The unit tests are included, but running the CLI requires the market-data workbook and original path conventions.
 - **Case 3:** The integrated ALM model uses several Excel workbooks for swap curves, bond prices and portfolio optimization, alongside included CSV outputs. The full raw data package and all exploratory scripts have not been copied.
 
+## Latest independently executed checks — 25 November 2026
+
+I extracted the supplied `Financial Engineering.zip` and ran the original course tests in the execution environment:
+
+- Callable-bond test suite: **66 passed** (8.79 seconds), with the archived shared `Case 1/Data` modules available.
+- Mortality-model test suite: **10 passed** (2.12 seconds).
+- Portfolio synthetic financial invariants: **6 passed** using Python `unittest`.
+
+The callable-bond folder now contains local copies of the shared `forward_swap.py` and `swap_curves.py` dependencies, making its Python imports self-contained. **This does not make the Bloomberg curve workbook available** and does not establish a clean-clone run of the pricing CLI.
+
+The original uploaded archive contains an earlier Case 3 model set than the shared GitHub repository's integrated `case3_model.py` and `cashflow_match_v2.py`. A complete integrated ALM run and numerical reconciliation have **not** been executed or validated. Do not interpret published VaR, solvency or IRR estimates as newly independently verified.
+
 ## Validation update — 25 November 2026
 
 The supplied course archive was inspected locally and the following checks were run:
