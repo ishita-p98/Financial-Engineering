@@ -8,4 +8,6 @@ scikit-learn
 statsmodels
 arch
 cvxpy
+clarabel
 pyyaml
+tabulate

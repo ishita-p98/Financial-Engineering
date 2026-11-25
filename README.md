@@ -14,6 +14,10 @@ Three client-facing financial-engineering assignments completed collaboratively 
 
 A [synthetic ALM example](03-life-insurance-alm/examples/alm_demo.py) demonstrates the policy guarantee, lump-sum election, discounted cash flows, duration and surplus accounting without proprietary data. It is **not** the full investment engine. The example has [11 independent unit tests](tests/test_alm_demo.py), executed locally before publication.
 
+## Latest validation
+
+The callable-bond NC4 result has been repriced from the group model, and the canonical Case 3 optimizer, policyholder election sensitivity, historical simulation, Monte Carlo and final-presentation receiver-swap overlay have completed successfully in [GitHub Actions](https://github.com/ishita-p98/Financial-Engineering/actions/runs/45633700394). Reproduced Case 3 reports, tables and charts are stored in `03-life-insurance-alm/reproduced/`.
+
 ## Source code and verification
 
 Selected original group Python models, test files and result tables are included under each case. See [technical audit and validation matrix](TECHNICAL_AUDIT.md), [reproducibility and data limitations](REPRODUCIBILITY.md) and [dependencies](requirements.txt). The complete raw Bloomberg workbooks are not included, so full end-to-end execution requires the original data.

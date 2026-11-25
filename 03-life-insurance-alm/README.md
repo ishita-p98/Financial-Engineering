@@ -63,7 +63,8 @@ The receiver-swap case uses €2.8bn at 15Y and €0.3bn at 30Y. Higher asset Va
 
 ![Receiver-IRS Monte Carlo output](reproduced/risk/mc_charts_mc_full_irs.png)
 
-\n## Canonical model version
+
+## Canonical model version
 
 **This portfolio uses the later integrated Case 3 implementation from the shared GitHub repository**: `src/case3_model.py` for the risk and liability engine and `src/cashflow_match_v2.py` for the two-stage fixed-income optimizer. Earlier archived prototypes are not used as alternative headline models. The standalone mortality module remains a supporting, independently tested component, not a second ALM pipeline.
 

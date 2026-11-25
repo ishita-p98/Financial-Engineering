@@ -39,7 +39,26 @@ The group framed the choice as an **economic trade-off**, not simply maximizing 
 
 For comparison, the shared code's single-call ladder reports coupons of **3.5111% at NC2, 3.4652% at NC3, 3.4079% at NC4, 3.3537% at NC5 and 3.3010% at NC6**, under its stated curve and model settings.
 
-## Reproduced NC4 scenario results\n\nThe rerun used the uploaded group model, EUR swap curve dated **31 August 2026**, 15% Black volatility input, Hull–White mean reversion of 3%, 12 tree steps per year, par call price and €500m notional. The model solves the NC4 coupon to par and applies the specified deterministic curve scenarios.\n\n| Measure | NC4 single-call result | Bullet comparison |\n| --- | ---: | ---: |\n| Par coupon | **3.4079%** | 3.2519% |\n| Coupon premium | **15.60bp** | — |\n| Initial issuer call value | **0.9647 points** | — |\n| Effective duration | **5.13** | 6.16 |\n| Effective convexity | **−83.68** | +46.20 |\n| DV01 on €500m | **€256,332/bp** | €310,983/bp |\n\nUnder a **100bp rate fall**, the callable instrument's issuer P&L is approximately −€23.1m versus −€32.3m for the bullet; the embedded call contributes about **€9.2m of relative protection**. Under a **200bp fall**, that relative contribution is approximately **€23.9m**. These are the model's issuer-side P&L conventions, not gains received immediately in cash.\n\nUnder a 100bp rise, issuer P&L is approximately +€26.8m for the callable structure versus +€30.0m for the bullet; the call option reduces the issuer's benefit from rates rising. This is the expected asymmetry of callable debt.\n\nThe actual generated data are available in [NC4 coupon ladder](results/nc4_single_coupon_ladder.csv), [NC4 scenario table](results/nc4_single_scenarios.csv), [effective risk](results/nc4_single_effective_risk.csv) and [key-rate DV01](results/nc4_single_key_rate_dv01.csv).\n\n## Risk and implementation
+## Reproduced NC4 scenario results
+
+The rerun used the uploaded group model, EUR swap curve dated **31 August 2026**, 15% Black volatility input, Hull–White mean reversion of 3%, 12 tree steps per year, par call price and €500m notional. The model solves the NC4 coupon to par and applies the specified deterministic curve scenarios.
+
+| Measure | NC4 single-call result | Bullet comparison |
+| --- | ---: | ---: |
+| Par coupon | **3.4079%** | 3.2519% |
+| Coupon premium | **15.60bp** | — |
+| Initial issuer call value | **0.9647 points** | — |
+| Effective duration | **5.13** | 6.16 |
+| Effective convexity | **−83.68** | +46.20 |
+| DV01 on €500m | **€256,332/bp** | €310,983/bp |
+
+Under a **100bp rate fall**, the callable instrument's issuer P&L is approximately −€23.1m versus −€32.3m for the bullet; the embedded call contributes about **€9.2m of relative protection**. Under a **200bp fall**, that relative contribution is approximately **€23.9m**. These are the model's issuer-side P&L conventions, not gains received immediately in cash.
+
+Under a 100bp rise, issuer P&L is approximately +€26.8m for the callable structure versus +€30.0m for the bullet; the call option reduces the issuer's benefit from rates rising. This is the expected asymmetry of callable debt.
+
+The actual generated data are available in [NC4 coupon ladder](results/nc4_single_coupon_ladder.csv), [NC4 scenario table](results/nc4_single_scenarios.csv), [effective risk](results/nc4_single_effective_risk.csv) and [key-rate DV01](results/nc4_single_key_rate_dv01.csv).
+
+## Risk and implementation
 The key risks include:
 - **Negative convexity:** as rates fall, the issuer call limits appreciation of the liability relative to a bullet.
 - **Curve-shape risk:** parallel shifts do not capture every flattener, steepener or key-rate exposure.
