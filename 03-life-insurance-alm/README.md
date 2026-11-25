@@ -71,6 +71,10 @@ A key analytical insight is that **minimizing asset-only VaR is not equivalent t
 
 [Inspect the model architecture, source code and result tables](IMPLEMENTATION.md).
 
+## Acknowledgements
+
+This was a collaborative Financial Engineering group project. Thanks to **Jonas and Kira**, and the other group members, for their contributions.
+
 ## Source and attribution
 - Final group presentation: *Asset Management for the All-Kanns Life Insurance*, 38 pages.
 - [Shared course repository: Case 3](https://github.com/benthebender/Financ-Engeneering/tree/main/Case%203), including models, Excel data, optimization outputs, VaR reports and charts.
