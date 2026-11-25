@@ -1,0 +1,151 @@
+name: Case 3 integrated ALM validation
+
+on:
+  workflow_dispatch:
+    inputs:
+      mc_paths:
+        description: "Monte Carlo paths (10,000–25,000)"
+        required: true
+        default: "10000"
+      run_election_sensitivity:
+        description: "Run 0/25/50/75/100% lump-sum election sensitivity"
+        type: boolean
+        required: true
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  integrated-case3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: Checkout portfolio repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install model dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy pandas scipy matplotlib openpyxl cvxpy clarabel scikit-learn statsmodels tabulate pyyaml
+
+      - name: Retrieve the canonical course source and inputs
+        run: |
+          git clone --depth 1 https://github.com/benthebender/Financ-Engeneering.git /tmp/course
+          mkdir -p /tmp/case3
+          cp -a "/tmp/course/Case 3/." /tmp/case3/
+          test -f /tmp/case3/case3_model.py
+          test -f /tmp/case3/cashflow_match_v2.py
+          test -f /tmp/case3/alm_fixed_income_.py
+          test -f "/tmp/case3/Data/Fixed Income Basket.xlsx"
+          test -f "/tmp/case3/Data/EUR SWAP CURVES 1-30yr.xlsx"
+          test -f "/tmp/case3/Data/pension_liability_results.xlsx"
+          test -f "/tmp/case3/Data/Investment Portfolio.xlsx"
+          test -f "/tmp/case3/Data/USD SWAP CURVE 1-30yr.xlsx"
+          test -f "/tmp/case3/Data/EUR USD Rates.xlsx"
+          test -f "/tmp/case3/Data/ZCB and ultra long coupon Bond.xlsx"
+          test -f /tmp/case3/portfolio_optimization_final.xlsx
+
+      - name: Verify canonical code matches portfolio source
+        run: |
+          cmp 03-life-insurance-alm/src/case3_model.py /tmp/case3/case3_model.py
+          cmp 03-life-insurance-alm/src/cashflow_match_v2.py /tmp/case3/cashflow_match_v2.py
+          cmp 03-life-insurance-alm/src/return_book.py /tmp/case3/return_book.py
+          cmp 03-life-insurance-alm/src/alm_fixed_income_.py /tmp/case3/alm_fixed_income_.py
+
+      - name: Run fixed-income cash-flow and KRD optimizer
+        working-directory: /tmp/case3
+        run: python cashflow_match_v2.py
+
+      - name: Validate optimized portfolio and election outputs
+        working-directory: /tmp/case3
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np
+          import pandas as pd
+          required = [
+              "results_v2/portfolio_wide.csv",
+              "results_v2/krd_wide.csv",
+              "results_v2/book_cf_wide.csv",
+              "results_v2/REPORT.md",
+              "results_v2/cfmatch_v2.png",
+          ]
+          for name in required:
+              p = Path(name)
+              if not p.is_file() or p.stat().st_size == 0:
+                  raise SystemExit(f"Missing/empty optimizer output: {name}")
+          portfolio = pd.read_csv("results_v2/portfolio_wide.csv")
+          krd = pd.read_csv("results_v2/krd_wide.csv")
+          assert "eur_allocation" in portfolio.columns
+          assert np.isfinite(portfolio["eur_allocation"]).all()
+          assert abs(portfolio["eur_allocation"].sum() - 5e9) < 5e6
+          assert np.isfinite(krd.select_dtypes(include="number")).all().all()
+          print("Optimizer output checks passed.")
+          print(f"Bond positions: {len(portfolio)}; invested EUR {portfolio.eur_allocation.sum():,.0f}")
+          PY
+
+      - name: Run policyholder election sensitivity
+        if: inputs.run_election_sensitivity
+        working-directory: /tmp/case3
+        run: python cashflow_match_v2.py elections
+
+      - name: Run integrated historical-simulation risk suite
+        working-directory: /tmp/case3
+        run: python case3_model.py hs full auto
+
+      - name: Run integrated Monte Carlo risk suite
+        working-directory: /tmp/case3
+        run: python case3_model.py mc full ${{ inputs.mc_paths }}
+
+      - name: Validate integrated risk outputs
+        working-directory: /tmp/case3
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import pandas as pd
+          required = [
+              "results_var/HS_REPORT_full_overlay.md",
+              "results_var/MC_REPORT_mc_full.md",
+              "results_var/scenario_pnl_full_overlay.csv",
+              "results_var/component_var_full_overlay.csv",
+              "results_var/stress_tests_full_overlay.csv",
+              "results_var/mc_full_student_t_nu5_pnl.csv",
+          ]
+          for name in required:
+              p = Path(name)
+              if not p.is_file() or p.stat().st_size == 0:
+                  raise SystemExit(f"Missing/empty integrated risk output: {name}")
+          for name in required:
+              if name.endswith(".csv"):
+                  frame = pd.read_csv(name)
+                  if frame.empty:
+                      raise SystemExit(f"Empty result table: {name}")
+          print("Integrated HS and MC output checks passed.")
+          PY
+
+      - name: Package derived results (no source workbooks)
+        run: |
+          mkdir -p validation-artifact
+          cp -a /tmp/case3/results_v2 validation-artifact/
+          cp -a /tmp/case3/results_var validation-artifact/
+          cp /tmp/case3/results/data_validation_report.txt validation-artifact/ 2>/dev/null || true
+          find validation-artifact -type f \( -name '*.xlsx' -o -name '*.xls' \) -delete
+          cat > validation-artifact/VALIDATION_CONTEXT.txt <<'EOF'
+          Generated by the Financial-Engineering integrated Case 3 GitHub Actions workflow.
+          The source and market-data inputs were downloaded into the ephemeral runner from the public course repository.
+          No raw Excel workbooks are included in this artifact.
+          Outputs are academic model results, not regulatory certification or investment advice.
+          EOF
+
+      - name: Upload reproducible model outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: case3-integrated-alm-results
+          path: validation-artifact/
+          retention-days: 30
