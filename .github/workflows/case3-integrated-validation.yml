@@ -1,6 +1,13 @@
 name: Case 3 integrated ALM validation
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/case3-integrated-validation.yml"
+      - "03-life-insurance-alm/src/**"
+      - "03-life-insurance-alm/README.md"
+      - "02-callable-bond/**"
   workflow_dispatch:
     inputs:
       mc_paths:
