@@ -14,7 +14,7 @@ The group's final client pitch recommended a **seven-year fixed-rate bond with o
 | Model | Hull–White one-factor trinomial tree |
 | Exercise | Single call at year 4, at par |
 
-The final presentation describes the premium as the cost of retaining the option to refinance early if rates decline. Its executive summary also highlights option benefits under falling-rate scenarios. **Caution:** the shared code's €18.6m / €43.6m examples correspond to the **NC2 Bermudan** output, not a verified NC4 single-call scenario. They should not be assigned to the selected NC4 structure without a matching repricing run.
+The final presentation describes the premium as the cost of retaining the option to refinance early if rates decline. I independently reran the group's Hull–White engine for the selected **NC4 single-call** structure at the stated curve date and €500m notional; the NC4-specific outputs are published below. This avoids reusing scenario results from NC2 Bermudan or NC3 single-call comparisons.
 
 ## Why an issuer pays for a call
 A bullet bond provides fixed-rate certainty but no contractual early-redemption right. A callable bond adds the issuer's option to redeem at a predetermined price. That option benefits the issuer when the continuation value of the outstanding bond exceeds the call price, often when market rates fall.
