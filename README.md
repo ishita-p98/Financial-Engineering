@@ -30,6 +30,6 @@ The projects build from **measuring risk**, to **pricing optionality**, to **des
 
 ## Collaboration
 
-These were collaborative Group 2 course projects. Thanks to **Jonas and Kira**, alongside Ben Lösche, David Wolter, Manuel Blasco Blázquez, Wiktor Murawski and Zhuoran Wang, for their contributions.
+These were collaborative Group 2 course projects. Thanks to **Jonas, Kira Pedersen, Ben Lösche, David Wolter, Manuel Blasco Blázquez, Wiktor Murawski and Zhuoran Wang** for their contributions.
 
 *The source presentations contain participant identifiers and are not redistributed here. This repository presents a written, attributed synthesis.*
