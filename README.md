@@ -12,7 +12,7 @@ Three client-facing financial-engineering assignments completed collaboratively 
 
 ## Source code and verification
 
-Selected original group Python models, test files and result tables are included under each case. See [reproducibility and data limitations](REPRODUCIBILITY.md) and [dependencies](requirements.txt). The complete raw Bloomberg workbooks are not included, so full end-to-end execution requires the original data.
+Selected original group Python models, test files and result tables are included under each case. See [technical audit and validation matrix](TECHNICAL_AUDIT.md), [reproducibility and data limitations](REPRODUCIBILITY.md) and [dependencies](requirements.txt). The complete raw Bloomberg workbooks are not included, so full end-to-end execution requires the original data.
 
 ## How to read this portfolio
 
